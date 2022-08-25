@@ -33,8 +33,13 @@
 
 <script>
 import Auth from '@/apis/auth'
+import request from '@/helpers/request'
 import Bus from '@/helpers/bus'
 
+request('/auth')
+  .then(data => {
+  console.log(data)
+})
   export default {
    data(){
      return {
@@ -102,6 +107,8 @@ import Bus from '@/helpers/bus'
          this.login.notice = '密码长度为6~16个字符'
          return
        }
+        
+       
        Auth.login({
          username: this.login.username,
          password: this.login.password

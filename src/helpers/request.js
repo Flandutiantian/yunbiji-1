@@ -2,7 +2,7 @@ import axios from 'axios'
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.defaults.baseURL = 'https://note-server.hunger-valley.com'
-axios.defaults.widthCredentials = true
+axios.defaults.withCredentials = true
 
 export default function request(url, type = 'GET', data = {}) {
     return new Promise((resolve, reject) => {
@@ -22,7 +22,7 @@ export default function request(url, type = 'GET', data = {}) {
             if (res.status === 200) {
                 resolve(res.data)
             } else {
-                console.error(res.data)
+                console.error({ msg: '网络异常' })
                 reject(res.data)
             }
         }).catch(err => {

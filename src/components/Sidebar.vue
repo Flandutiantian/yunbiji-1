@@ -14,6 +14,7 @@
 
 <script>
 import avatar from '@/components/Avatar.vue'
+import request from '@/helpers/request'
 import Auth from '@/apis/auth'
 export default {
   components: {
@@ -21,14 +22,16 @@ export default {
   },
 
   methods: {
-   logout() {
-  Auth.logout()
-    .then(data => {
-      this.$router.push({path: 'login'})
- })
+    logout() {
+    console.log('logout')
+    Auth.logout()
+        .then(data => {
+        console.log(data)
+      })
+ }
   }
 }
-  }
+  
 
 </script>
 

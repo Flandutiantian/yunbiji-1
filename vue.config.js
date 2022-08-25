@@ -6,12 +6,12 @@ module.exports = defineConfig({
   devServer: {
     https: true,
 
-
-    client: {
-      webSocketURL: 'wss://192.168.1.3:8081/ws',
-    },
-    headers: {
-      'Access-Control-Allow-Origin': '*',
+    proxy: {
+      '/': {
+        target: 'http://localhost:8080/', // 本地后端地址
+        changeOrigin: true, //允许跨域
+        ws: false
+      }
     }
   }
 })
