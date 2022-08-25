@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
-axios.defaults.baseURL = 'http://note-server.hunger-valley.com'
+axios.defaults.baseURL = 'https://note-server.hunger-valley.com'
 axios.defaults.widthCredentials = true
 
 export default function request(url, type = 'GET', data = {}) {
@@ -32,7 +32,3 @@ export default function request(url, type = 'GET', data = {}) {
     })
 }
 
-// request('/auth/login', 'POST', { username: 'hunger', password: '123456' })
-//     .then(data => {
-//         console.log(data)
-//     })

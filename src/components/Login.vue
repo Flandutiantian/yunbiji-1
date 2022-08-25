@@ -33,10 +33,7 @@
 
 <script>
 import Auth from '@/apis/auth'
-// Auth.getInfo()
-//   .then(data => {
-//     console.log(data)
-//   })
+import Bus from '@/helpers/bus'
 
   export default {
    data(){
@@ -80,11 +77,15 @@ import Auth from '@/apis/auth'
         }
 
       
-       Auth.register({ username: this.register.username, password: this.register.password }).then(data => {
+       Auth.register({
+         username: this.register.username,
+         password: this.register.password
+       }).then(data => {
          this.register.isError = false
          this.register.notice = ''
          this.$router.push({ path: 'notebooks' })
        }).catch(data => {
+         
          this.register.isError = true
         this.register.notice = data.msg
        })
@@ -101,12 +102,13 @@ import Auth from '@/apis/auth'
          this.login.notice = '密码长度为6~16个字符'
          return
        }
-        
-       console.log(`start login..., username: ${this.login.username} , password: ${this.login.password}`)   
-       Auth.login({ username: this.login.username, password: this.login.password }).then(data => {
+       Auth.login({
+         username: this.login.username,
+         password: this.login.password
+       }).then(data => {
          this.login.isError = false
-         this.login.notice = ''
-         this.$router.push({path: 'notebooks'})
+         this.login.notice = ''    
+         this.$router.push({ path: 'notebooks'})
        }).catch(data => {
          this.login.isError = true
         this.login.notice = data.msg

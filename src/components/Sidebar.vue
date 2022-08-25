@@ -17,21 +17,20 @@ import avatar from '@/components/Avatar.vue'
 import Auth from '@/apis/auth'
 export default {
   components: {
-      avatar
+  avatar
   },
 
   methods: {
-    logout() {
-    
-      Auth.logout()
-        .then(data => {
-          this.$router.push({path: 'login'})
-     })
-      }
-    }
+   logout() {
+  Auth.logout()
+    .then(data => {
+      this.$router.push({path: 'login'})
+ })
+  }
+}
   }
 
-    </script>
+</script>
 
 <style lang="less" scoped>
 #sidebar {
