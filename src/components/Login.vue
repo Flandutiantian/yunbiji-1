@@ -88,6 +88,7 @@ request('/auth')
        }).then(data => {
          this.register.isError = false
          this.register.notice = ''
+         Bus.$emit('userInfo', { username: this.register.username }) 
          this.$router.push({ path: 'notebooks' })
        }).catch(data => {
          
@@ -114,11 +115,12 @@ request('/auth')
          password: this.login.password
        }).then(data => {
          this.login.isError = false
-         this.login.notice = ''    
+         this.login.notice = ''  
+         Bus.$emit('userInfo',{ username: this.login.username })  
          this.$router.push({ path: 'notebooks'})
        }).catch(data => {
          this.login.isError = true
-        this.login.notice = data.msg
+         this.login.notice = data.msg
        })  
      }
     }

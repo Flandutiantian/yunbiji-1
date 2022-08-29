@@ -5,7 +5,7 @@ export default new Vue()
 /*
 使用方法 
 
-import Bus from '@/hepers/bus'
+import Bus from '@/helpers/bus'
 
 Bus.$on('test', msg =>{
     console.log(msg)
