@@ -15,8 +15,13 @@ export default {
                 .then(res => {
                     res.data = res.data.sort((notebook1, notebook2) => notebook1.createAt < notebook2.createAt ? 1 : -1)
                     res.data.forEach(notebook => {
-                        notebook.friendlyCreateAt = friendlyDate(notebook.createAt)
+                        //  console.log(notebook)
+                        //  console.log(friendlyDate(notebook.createdAt))
+
+                        notebook.friendlyCreateAt = friendlyDate(notebook.createdAt)
+                        console.log(notebook.friendlyCreateAt)
                     })
+
                     resolve(res)
                 }).catch(err => {
                     reject(err)
