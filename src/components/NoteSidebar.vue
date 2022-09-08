@@ -45,11 +45,11 @@ export default {
                 this.notes = res.data
                 //返回一个notebookId为this.curBook.id的列表
                 this.$emit('update:notes', this.notes)
-                Bus.$emit('update:notes', this.notes)
+               // Bus.$emit('update:notes', this.notes)
             })
     },
 
-    props: ['curNote'],
+
 
     data() {
         return {
@@ -68,6 +68,7 @@ export default {
             Notes.getAll({ notebookId })
                 .then(res => {
                     this.notes = res.data
+                    //跟Notedetail 说我现在要更新notes了执行this.notes
                     this.$emit('update:notes', this.notes)
                 })
         },
