@@ -53,14 +53,19 @@ export default {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 inputPattern: /^.{1,30}$/,
-                inputErrorMessage: '标题不能为空。且不超过30个字符'
+                inputErrorMessage: '标题不能为空，且不超过30个字符'
             }).then(({ value }) => {
                 return Notebooks.addNotebook({ title: value })
             }).then(res => {
                 res.data.friendlyCreatedAt = friendlyDate(res.data.createAt)
                 this.notebooks.unshift(res.data)
                 this.$message.success(res.msg)
-            });                  
+            }).catch(() => {
+                this.$message({
+                    type: 'error',
+                    message: res.msg
+                })
+            })
         },
 
         onEdit(notebook) {
@@ -94,7 +99,7 @@ export default {
                 this.$message({
                     type: 'success',
                     message: res.msg
-                })
+        })
             })
             }
      }
