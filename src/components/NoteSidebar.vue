@@ -16,7 +16,7 @@
             <div>标题</div>
         </div>
         <ul class="notes">
-            <li v-for="note in notes" :key="note">
+            <li v-for="note in notes" :key="note.value">
                 <router-link :to="`/note?noteId=${note.id}&notebookId=${curBook.id}`">
                     <span class="date">{{ note.updatedAtFriendly }}</span>
                     <span class="title">{{ note.title }}</span>
@@ -31,16 +31,19 @@ import Notebooks from '@/apis/notebooks'
 import Notes from '@/apis/notes'
 import Bus from '@/helpers/bus'
 
+
 export default {
     created() {
         Notebooks.getAll()
             .then(res => {
                 this.notebooks = res.data
+                //查找当前笔记本列表以及每一个id是否等于notebook.id == this.$route.query.notebookId如果查找到了就等于这个对象 
                 this.curBook = this.notebooks.find(notebook => notebook.id == this.$route.query.notebookId)
                     || this.notebooks[0] || {}
                 return Notes.getAll({ notebookId: this.curBook.id })
             }).then(res => {
                 this.notes = res.data
+                //返回一个notebookId为this.curBook.id的列表
                 this.$emit('update:notes', this.notes)
                 Bus.$emit('update:notes', this.notes)
             })
@@ -73,9 +76,9 @@ export default {
             Notes.addNote({ notebookId: this.curBook.id })
                 .then(res => {
                     console.log(res)
-                    this.notes.unshift(res.data)
+unshift(res.data)
                 })
-        }
+   }
 
     }
 }

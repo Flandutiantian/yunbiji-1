@@ -19,7 +19,7 @@ export default {
                         //  console.log(friendlyDate(notebook.createdAt))
 
                         notebook.friendlyCreateAt = friendlyDate(notebook.createdAt)
-                        console.log(notebook.friendlyCreateAt)
+                        // console.log(notebook.friendlyCreateAt)
                     })
 
                     resolve(res)
