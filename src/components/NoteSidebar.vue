@@ -45,7 +45,7 @@ export default {
                 this.notes = res.data
                 //返回一个notebookId为this.curBook.id的列表
                 this.$emit('update:notes', this.notes)
-               // Bus.$emit('update:notes', this.notes)
+                Bus.$emit('update:notes', this.notes)
             })
     },
 
