@@ -13,7 +13,8 @@
     "element-ui": "^2.15.9",
     "markdown-it": "^13.0.1",
     "vue": "^2.6.14",
-    "vue-router": "3"
+    "vue-router": "3",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

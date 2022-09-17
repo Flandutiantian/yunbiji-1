@@ -13,7 +13,7 @@
                             <span>{{ notebook.noteCounts }}</span>
                             <span class="action" @click.stop.prevent="onEdit(notebook)">编辑</span>
                             <span class="action" @click.stop.prevent="onDelete(notebook)">删除</span>
-                            <span class="date">{{notebook.friendlyCreateAt}}</span>
+                            <span class="date">{{notebook.friendlyCreatedAt}}</span>
                         </div>
                     </router-link>
                 </div>
@@ -73,7 +73,7 @@ export default {
             this.$prompt('输入新笔记本标题', '修改笔记本', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
-                inputPattern: /^.{1,35}$/,
+                inputPattern: /^.{1,30}$/,
                 inputValue: notebook.title,
                 inputErrorMessage: '标题不能为空。且不超过30个字符'
             }).then(({ value }) => {
@@ -81,8 +81,6 @@ export default {
                 return Notebooks.updateNotebook( notebook.id, { title }) 
             }).then(res => {
                 notebook.title = title
-                res.data.friendlyCreatedAt = friendlyDate(res.data.createAt)
-                this.notebooks.unshift(res.data)
                 this.$message.success(res.msg)
             })           
         },
