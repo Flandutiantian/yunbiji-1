@@ -1,6 +1,7 @@
 import request from '@/helpers/request'
 import { friendlyDate } from '@/helpers/util'
 
+
 const URL = {
     GET: '/notebooks',
     ADD: '/notebooks',
@@ -15,11 +16,8 @@ export default {
                 .then(res => {
                     res.data = res.data.sort((notebook1, notebook2) => notebook1.createAt < notebook2.createAt ? 1 : -1)
                     res.data.forEach(notebook => {
-                        //  console.log(notebook)
-                        //console.log(friendlyDate(notebook.createdAt))
-                        notebook.friendlyCreatedAt = friendlyDate(notebook.createdAt)
-                        //notebook.friendlyUpdatedAt = friendlyDate(notebook.updatedAt)
-                        console.log(notebook.friendlyCreatedAt)
+                        notebook.createdAtFriendly = friendlyDate(notebook.createdAt)
+                        notebook.updatedAtFriendly = friendlyDate(notebook.updatedAt)
                     })
 
                     resolve(res)
@@ -30,7 +28,7 @@ export default {
     },
 
     updateNotebook(notebookId, { title = '' } = { title: '' }) {
-        return request(URL.UPDATE.replace(':id, notebookId'), 'PATCH', { title })
+        return request(URL.UPDATE.replace(':id', notebookId), 'PATCH', { title })
     },
 
     deleteNotebook(notebookId) {
@@ -38,7 +36,16 @@ export default {
     },
 
     addNotebook({ title = '' } = { title: '' }) {
-        return request(URL.ADD, 'POST', { title })
+        return new Promise((resolve, reject) => {
+            request(URL.ADD, 'POST', { title })
+                .then(res => {
+                    res.data.createdAtFriendly = friendlyDate(res.data.createdAt)
+                    res.data.updatedAtFriendly = friendlyDate(res.data.updatedAt)
+                    resolve(res)
+                }).catch(err => {
+                    reject(err)
+                })
+        })
     }
 
 }
