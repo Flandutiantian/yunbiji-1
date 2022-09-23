@@ -30,7 +30,7 @@
             <span>{{curTrashNote.title}}</span>
         </div>
         <div> 
-            <div class="preview markdown-body" v-html="compileMarkdown"></div>
+            <div class="preview markdown-body" v-html="previewContent"></div>
         </div>
     </div>
     </div>
@@ -39,6 +39,10 @@
 <script>
 import Auth from '@/apis/auth'
 import MarkdownIt from 'markdown-it'
+
+import Trash from '@/apis/trash'
+
+window.Trash = Trash
 
 let md = new MarkdownIt()
 export default {
@@ -54,7 +58,7 @@ export default {
                 updatedAtFriendly: '刚刚'
             },
             belongTo: '我的笔记本',
-            trashNotes: [
+            TrashNotes: [
                 {
                     id: 1,
                     title: '我的笔记',
@@ -119,3 +123,4 @@ export default {
     }
 }
 </style>
+
