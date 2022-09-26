@@ -3,7 +3,7 @@ import { friendlyDate } from '@/helpers/util'
 
 
 const URL = {
-    GET: '/notebooks/trash',
+    GET: '/notes/trash',
     REVERT: '/notes/:noteId/revert',
     DELETE: '/notes/:noteId/confirm'
 }
@@ -13,10 +13,10 @@ export default {
         return new Promise((resolve, reject) => {
             request(URL.GET)
                 .then(res => {
-                    res.data = res.data.sort((note, note2) => note1.createAt < note2.createAt ? 1 : -1)
+                    res.data = res.data.sort((note1, note2) => note1.createdAt < note2.createdAt ? 1 : -1)
                     res.data.forEach(note => {
-                        notebook.createdAtFriendly = friendlyDate(note.createdAt)
-                        notebook.updatedAtFriendly = friendlyDate(note.updatedAt)
+                        note.createdAtFriendly = friendlyDate(note.createdAt)
+                        note.updatedAtFriendly = friendlyDate(note.updatedAt)
                     })
                     resolve(res)
                 }).catch(err => {

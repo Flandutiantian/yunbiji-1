@@ -7,7 +7,7 @@
             <div>标题</div>
         </div>
         <ul class="notes">
-            <li v-for="note in TrashNotes" :key="note.id">
+            <li v-for="note in trashNotes" :key="note.id">
                 <router-link :to="`/trash?noteId=${note.id}`">
                     <span class="date">{{ note.updatedAtFriendly }}</span>
                     <span class="title">{{ note.title }}</span>
@@ -37,54 +37,28 @@
 </template>
 
 <script>
-import Auth from '@/apis/auth'
 import MarkdownIt from 'markdown-it'
-
-import Trash from '@/apis/trash'
-
-window.Trash = Trash
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 let md = new MarkdownIt()
 export default {
-    name: 'TrashDetail',
     data() {
-        return {
-            msg: '回收站',
-            curTrashNote: {
-                id: 2,
-                title: '我的笔记',
-                content: '## hello',
-                createdAtFriendly: '2小时前',
-                updatedAtFriendly: '刚刚'
-            },
-            belongTo: '我的笔记本',
-            TrashNotes: [
-                {
-                    id: 1,
-                    title: '我的笔记',
-                    content: '## hello',
-                    createdAtFriendly: '2小时前',
-                    updatedAtFriendly: '刚刚'
-                },
-                {
-                    id: 2,
-                    title: '我的笔记',
-                    content: '## hello',
-                    createdAtFriendly: '2小时前',
-                    updatedAtFriendly: '刚刚'
-                }
-            ]
-        }
+        return {}
     },
     created() {
-        Auth.getInfo()
-            .then(res => {
-                if (!res.isLogin) {
-                    this.$router.push({ path: '/login' })
-                }
-            })
+        this.checkLogin({ path: '/login' })
+        this.getNotebooks(  )
+        this.getTrashNotes()
+            .then(() => {
+            this.setCurTrashNote({ curTrashNoteId: this.$route.query.noteId })
+           })
     },
     computed: {
+        ...mapGetters([
+            'trashNotes',
+            'curTrashNote',
+            'belongTo'
+        ]),
         previewContent() {
             return md.render(this.curTrashNote.content || '')
         },
@@ -92,12 +66,30 @@ export default {
     },
     
     methods: {
+        ...mapMutations([
+        'setCurTrashNote'
+        ]),
+
+        ...mapActions([
+            'checkLogin',
+            'deleteTrashNote',
+            'revertTrashNote',
+            'getTrashNotes',
+            'getNotebooks'
+        ]),
+
         onDelete() {
-        console.log('delete...')
+            console.log({ noteId: this.curTrashNote.id })
+            this.deleteTrashNote({ noteId: this.curTrashNote.id })
         },
+
         onRevert() {
-        console.log('revert...')
-    }
+            this.revertTrashNote({ noteId: this.curTrashNote.id })
+        }
+    },
+    beforeRouteUpdate(to, from, next) {
+        this.setCurTrashNote({ curTrashNoteId: to.query.noteId })
+        next()
     }
 
 }
