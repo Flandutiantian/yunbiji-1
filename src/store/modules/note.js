@@ -17,7 +17,7 @@ const getters = {
 }
 
 const mutations = {
-    setNotes(state, payload) {
+    setNote(state, payload) {
         state.notes = payload.notes
     },
 
@@ -36,7 +36,7 @@ const mutations = {
     },
 
     setCurNote(state, payload) {
-        state.curBookId = payload.curNoteId
+        state.curNoteId = payload.curNoteId
     }
 }
 
@@ -44,7 +44,7 @@ const actions = {
     getNotes({ commit }, { notebookId }) {
         return Note.getAll({ notebookId })
             .then(res => {
-                commit('setNotes', { notes: res.data })
+                commit('setNote', { notes: res.data })
             })
     },
 
