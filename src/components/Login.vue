@@ -32,8 +32,6 @@
 </template>
 
 <script>
-import Auth from '@/apis/auth'
-import Bus from '@/helpers/bus'
 import { mapGetters, mapActions } from 'vuex'
 
   export default {
@@ -155,8 +153,9 @@ import { mapGetters, mapActions } from 'vuex'
     display: flex;
 
     .main{
+      
         flex:1;
-        background: #36bc64 url(//cloud.hunger-valley.com/17-12-13/38476998.jpg-middle) center center no-repeat;
+        background: #d7d7d9 url(../assets/img/1.jpeg-middle) center center no-repeat;
         background-size:contain;
     }
     .form{
@@ -176,7 +175,7 @@ import { mapGetters, mapActions } from 'vuex'
             }
         }
         .button{
-            background-color: #2bb964;
+            background-color:#dc8caf;
             height:36px;
             line-height:36px;
             text-align:center;
