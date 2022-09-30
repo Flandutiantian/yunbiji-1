@@ -3,7 +3,7 @@
         <!-- 组件内部的一个props属性  data里面的一个属性-->
         <note-sidebar @update:notes="val => notes =val"></note-sidebar>
     <div class="note-detail">
-        <div class="note-empty" v-show="!curNote.id">请选择笔记</div>
+        <div class="note-empty" v-show="!curNote.id">请选择笔记或创建笔记本</div>
         <div class="note-detail-ct" v-show="curNote.id">
         <div class="note-bar">
           <span> 创建日期: {{curNote.createdAtFriendly}}</span>
